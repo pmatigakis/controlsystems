@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="" default="compile" basedir=".">
+    <property name="src" location="src" />
+    <property name="build" location="build" />
+    <property name="build.classes" location="build/classes" />
+    <property name="dist" location="dist" />
+    <property file="project.properties" />
+
+    <target name="init">
+        <mkdir dir="${build.classes}" />
+    </target>
+    
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${build.classes}" />
+    </target>
+    
+    <target name="dist" depends="compile">
+        <mkdir dir="${dist}" />
+    
+        <jar jarfile="${dist}/${project.name}-${version.major}.${version.minor}.${version.patch}.jar" basedir="${build.classes}">
+            <manifest>
+                <attribute name="Implementation-Vendor" value="Panagiotis Matigakis"/>
+                <attribute name="Implementation-Title" value="${project.name}"/>
+                <attribute name="Implementation-Version" value="${version.major}.${version.minor}.${version.patch}"/>
+            </manifest>
+        </jar> 
+    </target>
+    
+    <target name="clean">
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+    </target>
+</project>
